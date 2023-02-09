@@ -86,29 +86,32 @@ For this section, it is assumed that the reader has the Docker Desktop applicati
 ## Deploying App to Local Kubernetes Cluster <a name="deploy"></a>
 It is assumed the reader has installed minikube
 1. Execute `minikube start`
-2. Navigate to `resrouce-manifests` and execute the below command to deploy the webapp service
-   ```
-   kubectl apply -f sa-web-app-deployment.yaml
-   ```
-3. Deploy the webapp loadbalancer service
-   ```
-   kubectl apply -f service-sa-web-app-lb.yaml
-   ```
-4. Deploy the logic service
+2. Navigate to `resrouce-manifests` and execute the below command to deploy the logic service
    ```
    kubectl apply -f sa-logic-deployment.yaml
    ```
-5. Deploy the logic service entry point service
+3. Deploy the logic service entry point service
    ```
    kubectl apply -f service-sa-logic.yaml
    ```
-6. Identify the webapp loadbalancer URL via the `minikube service list` command
-7. Navigate to `sa-frontend` and modify `src/App.js` on line 23 by replacing the URL in the fetch with the URL from step 7
-8. Rebuild and deploy the frontend
+4. Deploy the webapp service
    ```
-   npm run build
+   kubectl apply -f sa-web-app-deployment.yaml
+   ```
+5. Deploy the webapp loadbalancer service
+   ```
+   kubectl apply -f service-sa-web-app-lb.yaml
+   ```
+6. Run the webapp load balancer service and identify the URL via `minikube service wsa-web-app-lb --url`
+7. Navigate to `sa-frontend` and modify `src/App.js` on line 23 by replacing the URL in the `fetch(...)` with the URL from step 7
+8. Rebuild and deploy the frontend
+   > In `sa-frontend`
+   ```
    docker build -f Dockerfile -t boszin/sentiment-analysis-frontend .
    docker push boszin/sentiment-analysis-frontend
+   ```
+   > In `resource-manifests`
+   ```
    kubectl apply -f sa-frontend-deployment.yaml
    ```
 9. Deploy the frontend loadbalancer service

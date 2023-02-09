@@ -20,8 +20,8 @@ class App extends Component {
     };
 
     analyzeSentence() {
-        // fetch('http://localhost:8080/sentiment', {
-        fetch(`${process.env.SA_WEBAPP_API_URL}/sentiment`, {
+        fetch('http://127.0.0.1:56566//sentiment', {
+        //fetch(`${process.env.SA_WEBAPP_API_URL}/sentiment`, {
                 method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
