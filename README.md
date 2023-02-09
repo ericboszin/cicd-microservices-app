@@ -8,8 +8,8 @@ This application is based on the freeCodeCamp guide, [Learn Kubernetes in Under 
 ## CI/CD Solution Architecture
 
 ## Running the Local App
-1. Clone this repository
-2. Navigate to `sa-frontend` and execute the following command
+> NOTE: for local app, navigate to `App.js` in `sa-frontend` and comment out line 24 and uncommment line 23.
+1. Navigate to `sa-frontend` and execute the following command
    ```
    npm install
    ```
@@ -17,12 +17,12 @@ This application is based on the freeCodeCamp guide, [Learn Kubernetes in Under 
    ```
    npm start
    ```
-3. Build the app
+2. Build the app
    ```
    npm run build
    ```
-4. Copy the contents of `sa-frontend/build` to an nginx server at `[your_nginx_installation_dir]/html`
-5. Navigate to `sa-webapp` and execute the following command
+3. Copy the contents of `sa-frontend/build` to an nginx server at `[your_nginx_installation_dir]/html`
+4. Navigate to `sa-webapp` and execute the following command
    ```
    mvn install
    ```
@@ -30,7 +30,7 @@ This application is based on the freeCodeCamp guide, [Learn Kubernetes in Under 
    ```
    java -jar sentiment-analysis-web-0.0.1-SNAPSHOT.jar --sa.logic.api.url=http://localhost:5000
    ```
-6. Navigate to `sa-logic/sa` and execute the followign commands
+5. Navigate to `sa-logic/sa` and execute the followign commands
     ```
     python -m pip install -r requirements.txt
     ```
@@ -41,10 +41,11 @@ This application is based on the freeCodeCamp guide, [Learn Kubernetes in Under 
     ```
     python sentiment_analysis.py
     ```
-7. To see the app in aciton (local), run the image of nginx which has the updated `/html` fodler and execute the OPTIONAL commands in steps 5 and 6 in sparate terminal sessions
+6. To see the app in aciton (local), run the image of nginx which has the updated `/html` fodler and execute the OPTIONAL commands in steps 5 and 6 in sparate terminal sessions
 
 ## Running the local Dockerized microservices
 For this section, it is assumed that the reader has the Docker Desktop application and a Docker Hub account.
+> NOTE: for local app, navigate to `App.js` in `sa-frontend` and comment out line 24 and uncommment line 23.
 1. Build all the Docker images
    > Logic Service
    ```
@@ -82,7 +83,7 @@ For this section, it is assumed that the reader has the Docker Desktop applicati
    docker run -d -p 80:80 <DOCKER_HUB_USERNAME>/sentiment-analysis-frontend
    ```
 
-## Deploying App to Local Kubernetes Cluster
+## Deploying App to Local Kubernetes Cluster <a name="deploy"></a>
 It is assumed the reader has installed minikube
 1. Execute `minikube start`
 2. Navigate to `resrouce-manifests` and execute the below command to deploy the webapp service
@@ -117,5 +118,18 @@ It is assumed the reader has installed minikube
    > OPTIONAL: check your deployement via `minikube service sa-frontend-lb`
 
 ## Deploying GKE via Terraform
+1. Navigate to `terraform/terraform.tfvars` and set `project_id` to your Googel Cloud Project
+2. In the `terraform` folder, execute `terraform init`
+3. Execute `terraform apply`, review teh chagnes and if all looks well, type `yes`
+4. Configure your kubectl via the below command
+   ```
+   gcloud container clusters get-credentials <kubernetes_cluster_name> --region <region>
+   ```
+   > `<kubernetes_cluster_name>` and `<region>` should have been an output from step 4.
+5. To tear down the deployement (and avoid incurred costs) run `terraform destroy` when done experimenting
 
-5. To tear down the deployement (and avoid incurred costs) run `terraform destroy` 
+## Deploying microservices app to GKE (manual)
+Ensure gcloud and gke-gcloud-auth-plugin have been installed and are configured
+1. Navigate to the `resrouce-manifests` fodler and execute the same commands as [Deploying App to Local Kubernetes Cluster](#deploy)
+2. For step 6 in the above reference, replace `minikube service list` with `kubectl get services` to get the URL.
+3. 
