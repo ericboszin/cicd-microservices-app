@@ -116,3 +116,6 @@ It is assumed the reader has installed minikube
    ```
    > OPTIONAL: check your deployement via `minikube service sa-frontend-lb`
 
+## Deploying GKE via Terraform
+
+5. To tear down the deployement (and avoid incurred costs) run `terraform destroy` 
