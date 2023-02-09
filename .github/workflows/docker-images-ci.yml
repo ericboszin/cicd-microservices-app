@@ -15,4 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag sa-app/sa-frontend/sentiment-analysis-frontend:$(date +%s)
+      run: |
+        docker build . --file Dockerfile --tag sentiment-analysis-frontend:$(date +%s)
+      working-directory: ./sa-app/sa-frontend
