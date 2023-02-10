@@ -11,9 +11,9 @@ env:
 
 jobs:
   checkout-build-publish:
-    name: Checkout, Build, and Publish
+    # name: Checkout, Build, and Publish
     runs-on: ubuntu-latest
-    environment: Production
+    # environment: Production
     steps:
       - name: Checkout
         uses: actions/checkout@v3
