@@ -9,14 +9,11 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  # GKE_CLUSTER: cluster-1    # Add your cluster name here.
-  # GKE_ZONE: us-central1-c   # Add your cluster zone here.
-  # DEPLOYMENT_NAME: gke-test # Add your deployment name here.
   IMAGE: sentiment-analysis-frontend
 
 jobs:
-  checkout-build-publish:
-    name: Checkout, Build, and Publish
+  checkout-build-publish-deploy:
+    name: Checkout, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     environment: Production
 
@@ -36,11 +33,11 @@ jobs:
         gcloud --quiet auth configure-docker
 
     # Get the GKE credentials so we can deploy to the cluster
-    # - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
-    #   with:
-    #     cluster_name: ${{ env.GKE_CLUSTER }}
-    #     location: ${{ env.GKE_ZONE }}
-    #     credentials: ${{ secrets.GKE_SA_KEY }}
+    - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+        credentials: ${{ secrets.GKE_SA_KEY }}
 
     # Build the Docker image
     - name: Build
@@ -58,8 +55,8 @@ jobs:
         docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
     
     # Deploy the Docker image to the GKE cluster
-    # - name: Deploy
-    #   run: |-
-    #     kubectl apply -f sa-frontend-deployment.yaml
-    #     kubectl apply -f service-sa-frontend-lb.yaml
-    #   working-directory: ./sa-app/resource-manifests
+    - name: Deploy
+      run: |-
+        kubectl apply -f sa-frontend-deployment.yaml
+        kubectl apply -f service-sa-frontend-lb.yaml
+      working-directory: ./sa-app/resource-manifests-gke

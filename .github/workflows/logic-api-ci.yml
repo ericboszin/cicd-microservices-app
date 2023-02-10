@@ -12,7 +12,7 @@ env:
   IMAGE: sentiment-analysis-logic
 
 jobs:
-job1:
+  checkout-build-publish-deploy:
     name: Checkout, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     environment: Production
