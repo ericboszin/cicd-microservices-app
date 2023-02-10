@@ -4,6 +4,7 @@ Repository hosting a Google Kubernetes Engine (GKE) microservices app and CICD p
 ## Application Architecture
 This application is based on the freeCodeCamp guide, [Learn Kubernetes in Under 3 Hours: A Detailed Guide to Orchestrating Containers](https://www.freecodecamp.org/news/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882/), by [Rinor Maloku](https://www.freecodecamp.org/news/author/rinormaloku/)
 
+<img src="./diagrams/application-architecture.drawio.svg">
 
 ## CI/CD Solution Architecture
 
