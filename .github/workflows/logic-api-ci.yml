@@ -38,6 +38,8 @@ jobs:
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
+      with:
+        context: ./sa-app/sa-logic
 
     # Push the Docker image to Google Container Registry
     - name: Publish
