@@ -33,8 +33,8 @@ jobs:
         gcloud --quiet auth configure-docker
 
     # Get the GKE credentials so we can deploy to the cluster
-     - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
-       with:
+    - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+      with:
          cluster_name: ${{ env.GKE_CLUSTER }}
          location: ${{ env.GKE_ZONE }}
          credentials: ${{ secrets.GKE_SA_KEY }}
@@ -55,8 +55,8 @@ jobs:
         docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
 
     # Deploy the Docker image to the GKE cluster
-     - name: Deploy
-       run: |-
+    - name: Deploy
+      run: |-
          kubectl apply -f sa-logic-deployment.yaml
          kubectl apply -f service-sa-logic.yaml
-       working-directory: ./sa-app/resource-manifests-gke
+      working-directory: ./sa-app/resource-manifests-gke
