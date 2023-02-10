@@ -44,6 +44,7 @@ class App extends Component {
 
         return (
             <MuiThemeProvider>
+                <div className="centerize">Hello World</div>
                 <div className="centerize">
                     <Paper zDepth={1} className="content">
                         <h2>Sentiment Analyser</h2>
