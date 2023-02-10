@@ -1,15 +1,15 @@
-name: Build Logic API
+name: Build Frontend App
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'sa-app/sa-logic/**'
+      - 'sa-app/sa-frontend/**'
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  IMAGE: sentiment-analysis-logic
+  IMAGE: sentiment-analysis-frontend
 
 jobs:
   checkout-build-publish:
@@ -40,7 +40,7 @@ jobs:
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
-      working-directory: ./sa-app/sa-logic
+      working-directory: ./sa-app/sa-frontend
 
     # Push the Docker image to Google Container Registry
     - name: Publish
