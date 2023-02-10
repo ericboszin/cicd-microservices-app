@@ -18,6 +18,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        context: ./sa-app/sa-logic
 
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
@@ -38,8 +40,6 @@ jobs:
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
-      with:
-        context: ./sa-app/sa-logic
 
     # Push the Docker image to Google Container Registry
     - name: Publish
