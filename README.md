@@ -1,5 +1,5 @@
 # CI/CD Microservices App
-Repository hosting a Google Kubernetes Engine (GKE) microservices app and CICD pipeline
+Repository hosting a Google Kubernetes Engine (GKE) microservices app and CI/CD pipeline
 
 ## Application Architecture
 This application is based on the freeCodeCamp guide, [Learn Kubernetes in Under 3 Hours: A Detailed Guide to Orchestrating Containers](https://www.freecodecamp.org/news/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882/), by [Rinor Maloku](https://www.freecodecamp.org/news/author/rinormaloku/)
@@ -136,9 +136,9 @@ These steps are based on the guide [here](https://developer.hashicorp.com/terraf
 
 ## Deploying Microservices App to GKE (manual)
 Ensure `gcloud` and `gke-gcloud-auth-plugin` have been installed and are configured
-1. Navigate to the `resrouce-manifests` fodler and execute the same commands as [Deploying App to Local Kubernetes Cluster](#deploy)
+1. Navigate to the `resource-manifests` fodler and execute the same commands as [Deploying App to Local Kubernetes Cluster](#deploy)
 2. For step 6 in the above reference, replace `minikube service list` with `kubectl describe services sa-web-app-lb` to get the URL.
 
 ## Deploying Microservices App to GKE (CI/CD)
 This repository is enabled with GitHub workflows (see `.github/workflows`) which automate the manual tasks and commands performed above. The workflows are based on the guide [here](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-google-kubernetes-engine).
-> NOTE: Changes to the WebApp Microservice will require an update to the Frontend service - line 23 in `App.js` must be updated with the URL of the WebApp loadbalancer upon re-deploy. Parametarizing this URL is a future enhancement.
+> NOTE: Changes to the WebApp Microservice will require an update to the Frontend service. Line 23 in `App.js` must be updated with the URL of the WebApp Loadbalancer upon re-deploy; and the frontend must be rebuilt and redeployed as a result. Parametarizing this URL is a future enhancement.
