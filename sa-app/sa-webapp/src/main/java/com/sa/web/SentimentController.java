@@ -26,5 +26,3 @@ public class SentimentController {
     public void testHealth() {
     }
 }
-
-

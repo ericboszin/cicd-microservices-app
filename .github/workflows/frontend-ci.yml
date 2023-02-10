@@ -9,6 +9,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: apt-index-377201-gke
+  GKE_ZONE: northamerica-northeast2
   IMAGE: sentiment-analysis-frontend
 
 jobs:
