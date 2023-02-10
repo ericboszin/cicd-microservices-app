@@ -7,7 +7,9 @@ This application is based on the freeCodeCamp guide, [Learn Kubernetes in Under 
 
 ## CI/CD Solution Architecture
 
-## Running the Local App
+## Running the Applicaiton
+The steps outlined here are based on the hands-on [lab](https://www.freecodecamp.org/news/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882/) from freeCodeCamp
+### Running the Local App
 > NOTE: for local app, navigate to `App.js` in `sa-frontend` and comment out line 24 and uncommment line 23.
 1. Navigate to `sa-frontend` and execute the following command
    ```
@@ -43,7 +45,7 @@ This application is based on the freeCodeCamp guide, [Learn Kubernetes in Under 
     ```
 6. To see the app in aciton (local), run the image of nginx which has the updated `/html` fodler and execute the OPTIONAL commands in steps 5 and 6 in sparate terminal sessions
 
-## Running the local Dockerized microservices
+### Running the local Dockerized Microservices
 For this section, it is assumed that the reader has the Docker Desktop application and a Docker Hub account.
 > NOTE: for local app, navigate to `App.js` in `sa-frontend` and comment out line 24 and uncommment line 23.
 1. Build all the Docker images
@@ -83,8 +85,8 @@ For this section, it is assumed that the reader has the Docker Desktop applicati
    docker run -d -p 80:80 <DOCKER_HUB_USERNAME>/sentiment-analysis-frontend
    ```
 
-## Deploying App to Local Kubernetes Cluster <a name="deploy"></a>
-It is assumed the reader has installed minikube
+### Deploying App to Local Kubernetes Cluster <a name="deploy"></a>
+It is assumed the reader has installed minikube and that the images for `sa-webapp` and `sa-logic` have been built
 1. Execute `minikube start`
 2. Navigate to `resrouce-manifests` and execute the below command to deploy the logic service
    ```
@@ -102,7 +104,7 @@ It is assumed the reader has installed minikube
    ```
    kubectl apply -f service-sa-web-app-lb.yaml
    ```
-6. Run the webapp load balancer service and identify the URL via `minikube service wsa-web-app-lb --url`
+6. Run the webapp load balancer service and identify the URL via `minikube service sa-web-app-lb --url`
 7. Navigate to `sa-frontend` and modify `src/App.js` on line 23 by replacing the URL in the `fetch(...)` with the URL from step 7
 8. Rebuild and deploy the frontend
    > In `sa-frontend`
@@ -121,10 +123,11 @@ It is assumed the reader has installed minikube
    > OPTIONAL: check your deployement via `minikube service sa-frontend-lb`
 
 ## Deploying GKE via Terraform
-1. Navigate to `terraform/terraform.tfvars` and set `project_id` to your Googel Cloud Project
+These steps are based on the guide [here](https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke)
+1. Navigate to `terraform/terraform.tfvars` and set `project_id` to your Google Cloud Project
 2. In the `terraform` folder, execute `terraform init`
-3. Execute `terraform apply`, review teh chagnes and if all looks well, type `yes`
-4. Configure your kubectl via the below command
+3. Execute `terraform apply`, review the chagnes and if all looks well, type `yes`
+4. Configure your `kubectl` via the below command
    ```
    gcloud container clusters get-credentials <kubernetes_cluster_name> --region <region>
    ```
@@ -132,7 +135,7 @@ It is assumed the reader has installed minikube
 5. To tear down the deployement (and avoid incurred costs) run `terraform destroy` when done experimenting
 
 ## Deploying microservices app to GKE (manual)
-Ensure gcloud and gke-gcloud-auth-plugin have been installed and are configured
+Ensure `gcloud` and `gke-gcloud-auth-plugin` have been installed and are configured
 1. Navigate to the `resrouce-manifests` fodler and execute the same commands as [Deploying App to Local Kubernetes Cluster](#deploy)
-2. For step 6 in the above reference, replace `minikube service list` with `kubectl get services` to get the URL.
+2. For step 6 in the above reference, replace `minikube service list` with `kubectl describe services sa-web-app-lb` to get the URL.
 3. 

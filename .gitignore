@@ -1,3 +1,5 @@
+# MICROSERVICES APP ====================================
+
 # SA Frontend ignored files
 node_modules/
 **/sa-frontend/build/
@@ -14,8 +16,10 @@ target/
 .idea/
 *.iml
 
-# nginx ignored files
+# Nginx ignored files
 nginx
+
+# TERRAFORM ============================================
 
 # Local .terraform directories
 **/.terraform/*

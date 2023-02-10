@@ -6,7 +6,7 @@ COPY package-lock.json .
 RUN npm install
 COPY . .
 # Env variable to pass URL of WebApp Laod Balancer
-ENV SA_WEBAPP_API_URL http://localhost:8080
+ENV SA_WEBAPP_API_URL $SA_WEBAPP_API_URL
 RUN npm run build
 
 # Stage 2: Build Nginx App
