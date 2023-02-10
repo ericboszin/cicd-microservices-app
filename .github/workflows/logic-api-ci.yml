@@ -9,6 +9,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: ${{ env.GKE_CLUSTER }}
+  GKE_ZONE: ${{ env.GKE_ZONE }}
   IMAGE: sentiment-analysis-logic
 
 jobs:
