@@ -47,7 +47,6 @@ The steps outlined here are based on the hands-on [lab](https://www.freecodecamp
 
 ### Running the local Dockerized Microservices
 For this section, it is assumed that the reader has the Docker Desktop application and a Docker Hub account.
-> NOTE: for local app, navigate to `App.js` in `sa-frontend` and comment out line 24 and uncommment line 23.
 1. Build all the Docker images
    > Logic Service
    ```
@@ -86,7 +85,7 @@ For this section, it is assumed that the reader has the Docker Desktop applicati
    ```
 
 ### Deploying App to Local Kubernetes Cluster <a name="deploy"></a>
-It is assumed the reader has installed minikube and that the images for `sa-webapp` and `sa-logic` have been built
+It is assumed the reader has installed minikube and that the images for `sa-webapp` and `sa-logic` have been built.
 1. Execute `minikube start`
 2. Navigate to `resrouce-manifests` and execute the below command to deploy the logic service
    ```
@@ -134,8 +133,11 @@ These steps are based on the guide [here](https://developer.hashicorp.com/terraf
    > `<kubernetes_cluster_name>` and `<region>` should have been an output from step 4.
 5. To tear down the deployement (and avoid incurred costs) run `terraform destroy` when done experimenting
 
-## Deploying microservices app to GKE (manual)
+## Deploying Microservices App to GKE (manual)
 Ensure `gcloud` and `gke-gcloud-auth-plugin` have been installed and are configured
 1. Navigate to the `resrouce-manifests` fodler and execute the same commands as [Deploying App to Local Kubernetes Cluster](#deploy)
 2. For step 6 in the above reference, replace `minikube service list` with `kubectl describe services sa-web-app-lb` to get the URL.
-3. 
+
+## Deploying Microservices App to GKE (CI/CD)
+This repository is enabled with GitHub workflows (see `.github/workflows`) which automate the manual tasks and commands performed above. The workflows are based on the guide [here](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-google-kubernetes-engine).
+> NOTE: Changes to the WebApp Microservice will require an update to the Frontend service - line 23 in `App.js` must be updated with the URL of the WebApp loadbalancer upon re-deploy. Parametarizing this URL is a future enhancement.

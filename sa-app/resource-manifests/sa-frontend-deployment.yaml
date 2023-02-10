@@ -24,8 +24,5 @@ spec:
         - image: boszin/sentiment-analysis-frontend
           imagePullPolicy: Always
           name: sa-frontend
-          env:
-            - name: SA_WEBAPP_API_URL
-              value: "http://sa-web-app-lb"
           ports:
             - containerPort: 80
