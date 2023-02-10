@@ -1,5 +1,5 @@
 # Stage 1: Build App
-FROM alpine:3.16 AS builder
+FROM node:latest AS builder
 WORKDIR /sa-frontend
 COPY package.json .
 COPY package-lock.json .
