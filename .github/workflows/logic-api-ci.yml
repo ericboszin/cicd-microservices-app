@@ -11,7 +11,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: apt-index-377201-gke
   GKE_ZONE: northamerica-northeast2
-  DEPLOYMENT_NAME: sa-app-logic
+  DEPLOYMENT_NAME: sa-logic
   IMAGE: sentiment-analysis-logic
 
 jobs:
