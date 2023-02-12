@@ -27,7 +27,7 @@ jobs:
     # Configure Terraform to use the gcloud command-line tool as a credential
     # helper for authentication
     - run: |-
-        gcloud --quiet auth application-default login
+        gcloud --quiet auth application-default login --client-id-file=${{ secrets.GKE_SA_KEY }}
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
