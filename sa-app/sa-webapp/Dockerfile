@@ -4,6 +4,7 @@ COPY . /sa-webapp
 WORKDIR /sa-webapp
 RUN mvn install
 
+# Instantiating env variable
 ENV SA_LOGIC_API_URL http://localhost:5000
 
 # Stage 2: Build Java App
