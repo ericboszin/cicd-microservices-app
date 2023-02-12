@@ -1,7 +1,7 @@
 name: 'Terraform CI/CD'
 
 on:
-  wofkflow-dispatch:
+  wofkflow_dispatch:
   push:
     branches:
       - main
