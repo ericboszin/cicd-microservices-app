@@ -27,7 +27,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
       working-directory: ./terraform
 
     # Checks that all Terraform configuration files adhere to a canonical format
@@ -40,7 +40,7 @@ jobs:
     - name: Terraform Plan
       run: terraform plan
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
       working-directory: ./terraform
 
       # On push to main, build or change infrastructure according to Terraform configuration files
@@ -49,5 +49,5 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
       working-directory: ./terraform
