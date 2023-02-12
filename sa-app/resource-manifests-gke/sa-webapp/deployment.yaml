@@ -21,7 +21,7 @@ spec:
         app: sa-web-app
     spec:
       containers:
-        - image: gcr.io/apt-index-377201/sentiment-analysis-web-app
+        - image: gcr.io/PROJECT_ID/IMAGE:TAG
           imagePullPolicy: Always
           name: sa-web-app
           env:

@@ -21,7 +21,7 @@ spec:
         app: sa-logic
     spec:
       containers:
-        - image: gcr.io/apt-index-377201/sentiment-analysis-logic
+        - image: gcr.io/PROJECT_ID/IMAGE:TAG
           imagePullPolicy: Always
           name: sa-logic
           ports:
