@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sa-frontend
+  name: sa-frontend-blue
   labels:
-    app: sa-frontend
+    app: sa-frontend-blue
 spec:
   selector:
     matchLabels:
-      app: sa-frontend
+      app: sa-frontend-blue
   replicas: 2
   minReadySeconds: 15
   strategy:
@@ -18,11 +18,11 @@ spec:
   template:
     metadata:
       labels:
-        app: sa-frontend
+        app: sa-frontend-blue
     spec:
       containers:
         - image: gcr.io/PROJECT_ID/IMAGE:TAG
           imagePullPolicy: Always
-          name: sa-frontend
+          name: sa-frontend-blue
           ports:
             - containerPort: 80
