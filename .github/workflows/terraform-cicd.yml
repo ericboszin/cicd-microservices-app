@@ -12,6 +12,7 @@ jobs:
   terraform-deploy:
     name: Terraform Deploy
     runs-on: ubuntu-latest
+    environment: Production
 
     permissions:
       contents: read
