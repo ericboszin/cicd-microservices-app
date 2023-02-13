@@ -10,12 +10,12 @@ on:
 
 jobs:
   terraform-deploy:
-    name: 'Terraform Deploy'
+    name: Terraform Deploy
     runs-on: ubuntu-latest
 
     permissions:
-     contents: 'read'
-     id-token: 'write'
+      contents: read
+      id-token: write
 
     steps:
     # Checkout the repository to the GitHub Actions runner
