@@ -142,15 +142,21 @@ Ensure `gcloud` and `gke-gcloud-auth-plugin` have been installed and are configu
 ## Deploying Microservices App to GKE (CI/CD)
 This repository is enabled with GitHub workflows (see `.github/workflows`) which automate the manual tasks and commands performed above. The workflows are based on the guide [here](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-google-kubernetes-engine).
 > NOTE: Changes to the WebApp Microservice will require an update to the Frontend service. Line 23 in `App.js` must be updated with the URL of the WebApp Loadbalancer upon re-deploy; and the frontend must be rebuilt and redeployed as a result. Parametarizing this URL is a future enhancement.
+
+Other references:
+- https://cloud.google.com/kubernetes-engine/docs/archive/using-container-image-digests-in-kubernetes-manifests#using_kustomize
+- https://cloud.google.com/blog/products/identity-security/enabling-keyless-authentication-from-github-actions
+- https://github.com/google-github-actions/auth#setup
+
 ### Blue/Green Deployement Scheme
-To test out the Blue/Green deployment scheme, perform the following:
-1. In `sa-frontend/App.js` change line 49 by adding "(Blue)"to the title
+To test out the [Blue/Green deployment scheme](https://cloud.google.com/architecture/implementing-deployment-and-testing-strategies-on-gke#perform_a_bluegreen_deployment), perform the following:
+1. In `sa-frontend/App.js` change line 49 by adding "(Blue)" to the title
 2. In `resource-manifests-gke/sa-frontend/deployment.yml` edit the deployement to be named `sa-frontend-blue`
 3. In the same location, ensure the `service.yml` points to the `sa-frontend-blue` selector
-4. Push the code to build and deploy teh deployement and service
+4. Push the code to build and deploy the deployement and service
 5. Update line 49 in `sa-frontend/App.js` from "Blue" to "Green"
-6. In `resource-manifests-gke/sa-frontend/deployment.yml` edit the deployement to be named `sa-frontend-green`
-7. When you are ready, open the frontend page and you will see it has "Blue" ion the title
+6. In `resource-manifests-gke/sa-frontend/deployment.yml` edit the deployement to be named `sa-frontend-green` and push your code to automatically build the new deployement
+7. When you are ready, open the frontend page and you will see it has "Blue" in the title
 8. In a new terminal, navigate to `resource-manifests-gke/sa-frontend` and modify `service.yml` to point to the `sa-frontend-green` selector
 9. Execute `kubectl apply -f service.yml`
 10. Go back to your browser and refresh the page a few times. After a few seconds, you should now see that the title went from having "Blue" to having "Green"
