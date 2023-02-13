@@ -9,7 +9,7 @@ on:
       - 'sa-app/sa-frontend/**'
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  PROJECT_ID: apt-index-377201
   GKE_CLUSTER: apt-index-377201-gke
   GKE_ZONE: northamerica-northeast2
   DEPLOYMENT_NAME: sa-frontend-green
