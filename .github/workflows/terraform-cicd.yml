@@ -18,6 +18,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    # Setup gcloud CLI
+    - run: |-
+        gcloud --quiet auth login --cred-file=${{ secrets.GKE_SA_KEY }}
+
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -25,8 +29,6 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
       working-directory: ./terraform
 
     # Checks that all Terraform configuration files adhere to a canonical format
@@ -38,8 +40,6 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
       working-directory: ./terraform
 
       # On push to main, build or change infrastructure according to Terraform configuration files
@@ -47,6 +47,4 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
       working-directory: ./terraform
