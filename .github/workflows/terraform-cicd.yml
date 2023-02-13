@@ -20,13 +20,13 @@ jobs:
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # Setup gcloud CLI
     - id: Auth
       uses: google-github-actions/auth@v1
       with:
-        workload_identity_provider: projects/560575087237/locations/global/workloadIdentityPools/my-pool/providers/my-provider
+        workload_identity_provider: projects/560575087237/locations/global/workloadIdentityPools/identity-pool/providers/provider
         service_account: cicd-service-account@apt-index-377201.iam.gserviceaccount.com
 
     - name: Set up Cloud SDK
@@ -52,8 +52,8 @@ jobs:
       run: terraform plan
       working-directory: ./terraform
 
-      # On push to main, build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    # On push to main, build or change infrastructure according to Terraform configuration files
+    # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
