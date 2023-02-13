@@ -9,4 +9,4 @@ spec:
       protocol: TCP
       targetPort: 80
   selector:
-    app: sa-frontend
+    app: sa-frontend-blue
