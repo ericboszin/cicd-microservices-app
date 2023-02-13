@@ -18,9 +18,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+
     # Setup gcloud CLI
-    - run: |-
-        gcloud --quiet auth login --cred-file=${{ secrets.GKE_SA_KEY }}
+    # - run: |-
+    #     gcloud --quiet auth login --cred-file=${{ secrets.GKE_SA_KEY }}
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
