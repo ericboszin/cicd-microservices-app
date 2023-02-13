@@ -12,7 +12,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: apt-index-377201-gke
   GKE_ZONE: northamerica-northeast2
-  DEPLOYMENT_NAME: sa-frontend
+  DEPLOYMENT_NAME: sa-frontend-green
   IMAGE: sentiment-analysis-frontend
 
 jobs:
