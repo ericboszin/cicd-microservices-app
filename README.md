@@ -4,11 +4,11 @@ Repository hosting a Google Kubernetes Engine (GKE) microservices app and CI/CD 
 ## Application Architecture
 This application is based on the freeCodeCamp guide, [Learn Kubernetes in Under 3 Hours: A Detailed Guide to Orchestrating Containers](https://www.freecodecamp.org/news/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882/), by [Rinor Maloku](https://www.freecodecamp.org/news/author/rinormaloku/)
 
-<img src="./diagrams/application-architecture.drawio.svg">
+<img src="./diagrams/application-architecture.drawio.png">
 
 ## CI/CD Solution Architecture
 The CI/CD pipeline developed to deploy the app and supporting infrastructure is depicted below.
-<img src=".\diagrams\cicd-solution-architecture.drawio.svg">
+<img src=".\diagrams\cicd-solution-architecture.drawio.png">
 
 ## Running the Applicaiton
 The steps outlined here are based on the hands-on [lab](https://www.freecodecamp.org/news/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882/) from freeCodeCamp
