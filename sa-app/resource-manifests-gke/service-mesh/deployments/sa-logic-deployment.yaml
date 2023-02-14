@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-logic
+  namespace: sa-logic
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sa-logic
+  labels:
+    app: sa-logic
+  namespace: sa-logic
+spec:
+  selector:
+     matchLabels:
+       app: sa-logic
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: sa-logic
+    spec:
+      containers:
+        - image: boszin/sentiment-analysis-logic
+          imagePullPolicy: Always
+          name: sa-logic
+          ports:
+            - containerPort: 5000

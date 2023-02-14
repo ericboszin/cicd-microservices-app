@@ -171,23 +171,3 @@ To test out the [Blue/Green deployment scheme](https://cloud.google.com/architec
 ## BONUS: Service Mesh on GKE
 To enable the Managed Anthos Service Mesh, follow the steps [here](https://cloud.google.com/service-mesh/docs/unified-install/install-anthos-service-mesh-command)
 > Note: the GKE deployment for this application can be enabled with Workload Identity via Terraform (see [here](https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/9.2.0/submodules/workload-identity)); however, the functionality was ommited for the original inention of the project.
-1. Enable Workload Identity on the cluster
-   ```
-   gcloud container clusters update <CLUSTER> --region=<REGION> --workload-pool=<PROJECT_ID>.svc.id.goog
-   ```
-2. Register the cluster to the project's Fleet
-   ```
-   gcloud container fleet memberships register <CLUSTER>-membership --gke-cluster=<REGION>/<CLUSTER> --enable-workload-identity --project <PROJECT_ID>
-   ```
-3. Provision managed Anthos Service Mesh on the cluster using the Fleet API
-   ```
-   gcloud container fleet mesh update --management automatic --memberships <CLUSTER>-membership --project <PROJECT>
-   ```
-4. Create a namespace
-   ```
-   kubectl create namespace <GATEWAY_NAMESPACE>
-   ```
-5. Enable auto-injection
-   ```
-   kubectl label namespace <GATEWAY_NAMESPACE> istio-injection=enabled istio.io/rev-
-   ```
