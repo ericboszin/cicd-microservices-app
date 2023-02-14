@@ -141,7 +141,14 @@ Ensure `gcloud` and `gke-gcloud-auth-plugin` have been installed and are configu
 
 ## Deploying Microservices App to GKE (CI/CD)
 This repository is enabled with GitHub workflows (see `.github/workflows`) which automate the manual tasks and commands performed above. The workflows are based on the guide [here](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-google-kubernetes-engine).
-> NOTE: Changes to the WebApp Microservice will require an update to the Frontend service. Line 23 in `App.js` must be updated with the URL of the WebApp Loadbalancer upon re-deploy; and the frontend must be rebuilt and redeployed as a result. Parametarizing this URL is a future enhancement.
+> NOTE 1: Changes to the WebApp Microservice will require an update to the Frontend service. Line 23 in `App.js` must be updated with the URL of the WebApp Loadbalancer upon re-deploy; and the frontend must be rebuilt and redeployed as a result. Parametarizing this URL is a future enhancement.
+
+> NOTE 2: Ensure that the account used for your CI/CD pipelines has the following permissions:
+> - Compute Admin
+> - Compute Network Admin
+> - Kubernetes Engine Admin
+> - Service Account User
+> - Storage Admin
 
 Other references:
 - https://cloud.google.com/kubernetes-engine/docs/archive/using-container-image-digests-in-kubernetes-manifests#using_kustomize
@@ -160,3 +167,7 @@ To test out the [Blue/Green deployment scheme](https://cloud.google.com/architec
 8. In a new terminal, navigate to `resource-manifests-gke/sa-frontend` and modify `service.yml` to point to the `sa-frontend-green` selector
 9. Execute `kubectl apply -f service.yml`
 10. Go back to your browser and refresh the page a few times. After a few seconds, you should now see that the title went from having "Blue" to having "Green"
+
+## BONUS: Service Mesh on GKE
+To enable the Managed Anthos Service Mesh, follow the steps [here](https://cloud.google.com/service-mesh/docs/managed/provision-managed-anthos-service-mesh)
+> Note: the GKE deployment for this application can be enabled with Workload Identity via Terraform (see [here](https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/9.2.0/submodules/workload-identity)); however, the functionality was ommited for the original inention of the project.
