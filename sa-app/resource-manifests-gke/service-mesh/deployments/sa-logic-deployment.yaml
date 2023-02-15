@@ -27,8 +27,9 @@ spec:
       labels:
         app: sa-logic
     spec:
+      serviceAccountName: sa-logic
       containers:
-        - image: boszin/sentiment-analysis-logic
+        - image: gcr.io/apt-index-377201/sentiment-analysis-logic:3b81d14c77cbe341f57538d4cfc39f0f6ddb13a6
           imagePullPolicy: Always
           name: sa-logic
           ports:

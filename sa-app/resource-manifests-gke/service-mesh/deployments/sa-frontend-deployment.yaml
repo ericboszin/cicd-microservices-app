@@ -8,9 +8,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sa-frontend
+  namespace: sa-frontend
   labels:
     app: sa-frontend
-  namespace: sa-frontend
 spec:
   selector:
     matchLabels:
@@ -26,9 +26,12 @@ spec:
     metadata:
       labels:
         app: sa-frontend
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
+      serviceAccountName: sa-frontend
       containers:
-        - image: boszin/sentiment-analysis-frontend
+        - image: gcr.io/apt-index-377201/sentiment-analysis-frontend:efa4df4e6b88af86d48ce02aa344db7ab74c7e8a
           imagePullPolicy: Always
           name: sa-frontend
           ports:

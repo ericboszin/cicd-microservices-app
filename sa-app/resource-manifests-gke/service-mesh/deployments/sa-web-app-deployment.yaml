@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: sa-webapp
+  name: sa-web-app
   namespace: sa-web-app
 ---
 apiVersion: apps/v1
@@ -27,8 +27,9 @@ spec:
       labels:
         app: sa-web-app
     spec:
+      serviceAccountName: sa-web-app
       containers:
-        - image: boszin/sentiment-analysis-web-app
+        - image: gcr.io/apt-index-377201/sentiment-analysis-web-app:35c291d08b7d103327802ae6cf2c7facfe66798a
           imagePullPolicy: Always
           name: sa-web-app
           env:
